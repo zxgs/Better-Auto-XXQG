@@ -500,7 +500,7 @@ if (GLOBAL_CONFIG.get("NO_UPDATE", 0) && (app.versionName != latest_version)) {
 
 
 // 创建选项菜单(右上角)
-ui.emitter.on("create_options_menu", menu=>{
+ui.emitter.on("create_options_menu", menu => {
     menu.add("日志");
     menu.add("关于");
     menu.add("Github");
@@ -508,13 +508,13 @@ ui.emitter.on("create_options_menu", menu=>{
 });
 
 // 监听选项菜单点击
-ui.emitter.on("options_item_selected", (e, item)=>{
-    switch(item.getTitle()){
+ui.emitter.on("options_item_selected", (e, item) => {
+    switch (item.getTitle()) {
         case "日志":
             app.startActivity("console");
             break;
         case "关于":
-            alert("关于", "强国助手 v"+latest_version);
+            alert("关于", "强国助手 v" + latest_version);
             break;
         case "Github":
             app.openUrl("https://github.com/sec-an/Better-Auto-XXQG");
@@ -540,13 +540,11 @@ var script_chosen_Listener = new android.widget.AdapterView.OnItemSelectedListen
             ui.ttxs.visibility = 8;
             ui.study.visibility = 8;
             ui.ttxs_pro.visibility = 0;
-        }
-        else if (ui.script_chosen.getSelectedItemPosition() == 1) {
+        } else if (ui.script_chosen.getSelectedItemPosition() == 1) {
             ui.ttxs_pro.visibility = 8;
             ui.study.visibility = 8;
             ui.ttxs.visibility = 0;
-        }
-        else if (ui.script_chosen.getSelectedItemPosition() == 2) {
+        } else if (ui.script_chosen.getSelectedItemPosition() == 2) {
             ui.ttxs_pro.visibility = 8;
             ui.ttxs.visibility = 8;
             ui.study.visibility = 0;
@@ -579,7 +577,7 @@ ui.consoleshow.on("check", function (checked) {
         });
     }
 });
- 
+
 // 当用户回到本界面时，resume事件会被触发
 ui.emitter.on("resume", function () {
     // 此时根据无障碍服务的开启情况，同步开关的状态
@@ -610,15 +608,15 @@ ui.start.click(function () {
         return;
     }
     threads.start(function () {
-        let url = 'https://ghproxy.com/https://raw.githubusercontent.com/sec-an/Better-Auto-XXQG/main/'+ui.script_chosen.getSelectedItemPosition()+'.js';
+        let url = 'https://ghproxy.com/https://raw.githubusercontent.com/sec-an/Better-Auto-XXQG/main/' + ui.script_chosen.getSelectedItemPosition() + '.js';
         execution = engines.execScript("强国助手", http.get(url).body.string());
     });
 });
 
 // 保存天天向上pro脚本设置
 ui.ttxs_pro_save.click(function () {
-    TTXS_PRO_CONFIG.put("watchdog", ui.ttxs_pro_watchdog.getText()+"");
-    TTXS_PRO_CONFIG.put("slide_verify", ui.ttxs_pro_slide_verify.getText()+"");
+    TTXS_PRO_CONFIG.put("watchdog", ui.ttxs_pro_watchdog.getText() + "");
+    TTXS_PRO_CONFIG.put("slide_verify", ui.ttxs_pro_slide_verify.getText() + "");
     TTXS_PRO_CONFIG.put("fast_mode", ui.ttxs_pro_fast_mode.isChecked());
     TTXS_PRO_CONFIG.put("ddtong", ui.ttxs_pro_ddtong.isChecked());
     TTXS_PRO_CONFIG.put("is_exit", ui.ttxs_pro_is_exit.isChecked());
@@ -630,19 +628,19 @@ ui.ttxs_pro_save.click(function () {
     TTXS_PRO_CONFIG.put("zhuanxiang", ui.ttxs_pro_zhuanxiang.getSelectedItemPosition());
     TTXS_PRO_CONFIG.put("tiaozhan", ui.ttxs_pro_tiaozhan.isChecked());
     TTXS_PRO_CONFIG.put("ocr_choice", ui.ttxs_pro_ocr_choice.getSelectedItemPosition());
-    TTXS_PRO_CONFIG.put("ocr_maxtime", ui.ttxs_pro_ocr_maxtime.getText()+"");
+    TTXS_PRO_CONFIG.put("ocr_maxtime", ui.ttxs_pro_ocr_maxtime.getText() + "");
     TTXS_PRO_CONFIG.put("duizhan_mode", ui.ttxs_pro_duizhan_mode.getSelectedItemPosition());
-    TTXS_PRO_CONFIG.put("jisu", ui.ttxs_pro_jisu.getText()+"");
+    TTXS_PRO_CONFIG.put("jisu", ui.ttxs_pro_jisu.getText() + "");
     TTXS_PRO_CONFIG.put("guaji", ui.ttxs_pro_guaji.isChecked());
     TTXS_PRO_CONFIG.put("siren", ui.ttxs_pro_siren.isChecked());
-    TTXS_PRO_CONFIG.put("dacuo_num", ui.ttxs_pro_dacuo_num.getText()+"");
+    TTXS_PRO_CONFIG.put("dacuo_num", ui.ttxs_pro_dacuo_num.getText() + "");
     TTXS_PRO_CONFIG.put("shuangren", ui.ttxs_pro_shuangren.isChecked());
     TTXS_PRO_CONFIG.put("bendi", ui.ttxs_pro_bendi.isChecked());
     TTXS_PRO_CONFIG.put("dingyue", ui.ttxs_pro_dingyue.getSelectedItemPosition());
-    TTXS_PRO_CONFIG.put("pushplus", ui.ttxs_pro_pushplus.getText()+"");
+    TTXS_PRO_CONFIG.put("pushplus", ui.ttxs_pro_pushplus.getText() + "");
     TTXS_PRO_CONFIG.put("yl_on", ui.ttxs_pro_yl_on.isChecked());
-    TTXS_PRO_CONFIG.put("yinliang", ui.ttxs_pro_yinliang.getText()+"");
-    TTXS_PRO_CONFIG.put("zhanghao", ui.ttxs_pro_zhanghao.getText()+"");
+    TTXS_PRO_CONFIG.put("yinliang", ui.ttxs_pro_yinliang.getText() + "");
+    TTXS_PRO_CONFIG.put("zhanghao", ui.ttxs_pro_zhanghao.getText() + "");
 
     toastLog("天天向上pro配置保存成功！");
 });
@@ -716,20 +714,20 @@ ui.study_save.click(function () {
     STUDY_CONFIG.put("checkbox_03", ui.study_checkbox_03.isChecked());
     STUDY_CONFIG.put("shuangren", ui.study_shuangren.isChecked());
 
-    STUDY_CONFIG.put("huakuaidelay", ui.study_huakuaidelay.getText()+"");
+    STUDY_CONFIG.put("huakuaidelay", ui.study_huakuaidelay.getText() + "");
     STUDY_CONFIG.put("select", ui.study_select.getSelectedItemPosition());
     STUDY_CONFIG.put("selectm", ui.study_selectm.getSelectedItemPosition());
     STUDY_CONFIG.put("select_01", ui.study_select_01.getSelectedItemPosition());
     STUDY_CONFIG.put("xianzhi", ui.study_xianzhi.isChecked());
-    STUDY_CONFIG.put("another", ui.study_another.getText()+"");
+    STUDY_CONFIG.put("another", ui.study_another.getText() + "");
     STUDY_CONFIG.put("stronger", ui.study_stronger.getSelectedItemPosition());
 
     STUDY_CONFIG.put("ssub", ui.study_ssub.getSelectedItemPosition());
     STUDY_CONFIG.put("diandian", ui.study_diandian.isChecked());
-    STUDY_CONFIG.put("alltime", ui.study_alltime.getText()+"");
-    STUDY_CONFIG.put("time1", ui.study_time1.getText()+"");
-    STUDY_CONFIG.put("time2", ui.study_time2.getText()+"");
-    STUDY_CONFIG.put("Token", ui.study_Token.getText()+"");
+    STUDY_CONFIG.put("alltime", ui.study_alltime.getText() + "");
+    STUDY_CONFIG.put("time1", ui.study_time1.getText() + "");
+    STUDY_CONFIG.put("time2", ui.study_time2.getText() + "");
+    STUDY_CONFIG.put("Token", ui.study_Token.getText() + "");
 
     toastLog("STUDY配置保存成功！");
 });
