@@ -3,7 +3,7 @@ console.clear();
 http.__okhttp__.setTimeout(10000);
 
 let url = [
-    'https://ghproxy.com/https://raw.githubusercontent.com/sec-an/Better-Auto-XXQG/main/UI.js',
+    'https://gh-proxy.com/https://raw.githubusercontent.com/sec-an/Better-Auto-XXQG/main/UI.js',
     "https://raw.gh.fakev.cn/sec-an/Better-Auto-XXQG/main/UI.js",
     'https://cdn.jsdelivr.net/gh/sec-an/Better-Auto-XXQG@main/UI.js',
     'https://raw.githubusercontent.com/sec-an/Better-Auto-XXQG/main/UI.js',
