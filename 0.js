@@ -122,7 +122,7 @@ var storage = storages.create('songgedodo');
 // 脚本版本号
 var last_version = "V10.11";
 var engine_version = "V11.2";
-var newest_version = "V11.4";
+var newest_version = "V11.5";
 if (storage.get(engine_version, true)) {
   storage.remove(last_version);
   let gengxin_rows = ["最新版本强国APP不支持多人对战，切勿更新！",
@@ -553,12 +553,12 @@ function do_meiri() {
     // 等待加载
     text(num + substr).waitFor();
     num++;
-    //     // 如果是视频题则重新开始
-    //     if (className("android.widget.Image").exists()) {
-    //       num = 1;
-    //       restart(0);
-    //       continue;
-    //     }
+    // 如果是视频题则重新开始
+    if (className("android.widget.Image").exists()) {
+      num = 1;
+      restart(0);
+      continue;
+    }
     do_exec();
     // 点击确定下一题
     depth(20).text("确定").findOne().click();
@@ -584,7 +584,9 @@ function do_meizhou() {
   fSet("title", "每周答题…");
   fClear();
   // 等待加载
-  textContains("月").waitFor();
+  textMatches(/.*月|发现新版本/).waitFor();
+  if (text("发现新版本").exists()) return fError("有弹窗无法每周答题，可使用旧版修改版本号版取消弹窗"), sleep(1000), text("取消").findOne().click(), sleep(1000), back(), text("我要答题").waitFor(),
+    sleep(1000), back(), ran_sleep(), !0;
   let scoll = depth(21).scrollable().findOne();
   // 下面是倒叙作答
   if (meizhou_dao) {
@@ -805,7 +807,14 @@ function do_tiaozhan() {
   }
   fClear();
   // 等待加载、积分页面也有Image和List，需要用depth筛选
-  className("android.widget.Image").depth(24).waitFor();
+  className("android.widget.Image").textMatches(/total.*|chanllenge.*/).waitFor();
+  if (textStartsWith("total").exists()) {
+    var a = !0,
+      b = className("android.widget.Image").textStartsWith("total").findOne().parent();
+    ran_sleep();
+    b.click();
+    className("android.widget.Image").textStartsWith("chanllenge").waitFor()
+  }
   let total = 0;
   let max_total = 5;
   if (ddtong) {
@@ -871,7 +880,7 @@ function do_tiaozhan() {
         text("再来一局").findOne().click();
       } else {
         // 退出
-        back();
+        a && (back(), textStartsWith("total").waitFor(), sleep(2000)), back(), 
         text("登录").waitFor();
         ran_sleep();
         return true;
@@ -2094,7 +2103,7 @@ function restart(restart_flag) {
     // 0为每日答题
     case 0:
       text('登录').waitFor();
-      entry_jifen_project("每日");
+      entry_jifen_project("每日答题");
       break;
       // 1为每周答题
     case 1:
